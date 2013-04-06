@@ -23,7 +23,7 @@ public class Node {
 		this.spookiness = spookiness;
 		this.roomNumber = roomNumber;
 		//setUpWalls(sharedWallsArray);
-		defaultRoomAccess(k, roomNumber);
+		//defaultRoomAccess(k, roomNumber);//we dont have the other nodes yet
 	}
 	public void setUpWalls(int[] sharedWallsArray) {
 		for (int i = 0; i < sharedWallsArray.length; i++) {
@@ -33,6 +33,7 @@ public class Node {
 	}
 	
 	public void defaultRoomAccess(int k, int roomNumber) {
+		//need to check out of bounds and if rooom is a side room or not
 		roomsAccessible.add(roomNumber + 1);
 		roomsAccessible.add(roomNumber - 1);
 		roomsAccessible.add(roomNumber + k);
