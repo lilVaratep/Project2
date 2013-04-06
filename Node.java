@@ -19,11 +19,11 @@ public class Node {
 		sharedWalls = null;
 		
 	}
-	public Node(int spookiness, int roomNumber, int k/*, int[] sharedWallsArray*/) {
+	public Node(int roomNumber, int k/*, int[] sharedWallsArray*/) {
 		this.spookiness = spookiness;
 		this.roomNumber = roomNumber;
 		//setUpWalls(sharedWallsArray);
-		defaultRoomAccess(k);
+		defaultRoomAccess(k, roomNumber);
 	}
 	public void setUpWalls(int[] sharedWallsArray) {
 		for (int i = 0; i < sharedWallsArray.length; i++) {
@@ -32,7 +32,7 @@ public class Node {
 		}
 	}
 	
-	public void defaultRoomAccess(int k) {
+	public void defaultRoomAccess(int k, int roomNumber) {
 		roomsAccessible.add(roomNumber + 1);
 		roomsAccessible.add(roomNumber - 1);
 		roomsAccessible.add(roomNumber + k);
