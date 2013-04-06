@@ -12,15 +12,18 @@ public class Node {
 	int work;
 	
 	ArrayList<Integer> sharedWalls = new ArrayList<Integer>();
+	ArrayList<Integer> roomsAccessible = new ArrayList<Integer>();
 	public Node() {
 		spookiness = 0;
 		roomNumber = 0;
 		sharedWalls = null;
+		
 	}
-	public Node(int roomNumber, int spookiness, int[] sharedWallsArray) {
+	public Node(int spookiness, int roomNumber, int k/*, int[] sharedWallsArray*/) {
 		this.spookiness = spookiness;
 		this.roomNumber = roomNumber;
-		setUpWalls(sharedWallsArray);
+		//setUpWalls(sharedWallsArray);
+		defaultRoomAccess(k);
 	}
 	public void setUpWalls(int[] sharedWallsArray) {
 		for (int i = 0; i < sharedWallsArray.length; i++) {
@@ -29,6 +32,14 @@ public class Node {
 		}
 	}
 	
+	public void defaultRoomAccess(int k) {
+		roomsAccessible.add(roomNumber + 1);
+		roomsAccessible.add(roomNumber - 1);
+		roomsAccessible.add(roomNumber + k);
+		roomsAccessible.add(roomNumber + k - 1);
+		roomsAccessible.add(roomNumber - k);
+		roomsAccessible.add(roomNumber - k + 1);
+	}
 	public void setSpookiness(int n) {
 		spookiness = n;
 	}
