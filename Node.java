@@ -4,57 +4,58 @@
 
 // Node.java
 
-import java.util.*;
+   import java.util.*;
 
-public class Node {
-	int spookiness;
-	int roomNumber;
-	int work;
-	
-	ArrayList<Integer> sharedWalls = new ArrayList<Integer>();
-	ArrayList<Integer> roomsAccessible = new ArrayList<Integer>();
-	public Node() {
-		spookiness = 0;
-		roomNumber = 0;
-		sharedWalls = null;
-		
-	}
-	public Node(int roomNumber, int k/*, int[] sharedWallsArray*/) {
-		this.spookiness = spookiness;
-		this.roomNumber = roomNumber;
-		//setUpWalls(sharedWallsArray);
-		//defaultRoomAccess(k, roomNumber);//we dont have the other nodes yet
-	}
-	public void setUpWalls(int[] sharedWallsArray) {
-		for (int i = 0; i < sharedWallsArray.length; i++) {
-			if (sharedWallsArray[i] != roomNumber)
-				sharedWalls.add(sharedWallsArray[i]);
-		}
-	}
-	
-	public void defaultRoomAccess(int k, int roomNumber) {
-		//need to check out of bounds and if rooom is a side room or not
-		roomsAccessible.add(roomNumber + 1);
-		roomsAccessible.add(roomNumber - 1);
-		roomsAccessible.add(roomNumber + k);
-		roomsAccessible.add(roomNumber + k - 1);
-		roomsAccessible.add(roomNumber - k);
-		roomsAccessible.add(roomNumber - k + 1);
-	}
-	public void setSpookiness(int n) {
-		spookiness = n;
-	}
-	public int getSpookiness() {
-		return spookiness;
-	}
-	
-	public void setRoomNumber(int n) {
-		roomNumber = n;
-	}
-	public int getRoomNumber() {
-		return roomNumber;
-	}
-	public ArrayList<Integer> getSharedWalls() {
-		return sharedWalls;
-	}
-}
+   public class Node {
+      int spookiness;
+      int roomNumber;
+      int work;
+   
+      ArrayList<Integer> sharedWalls = new ArrayList<Integer>();
+      ArrayList<Integer> roomsAccessible = new ArrayList<Integer>();
+      public Node() {
+         spookiness = 0;
+         roomNumber = 0;
+         sharedWalls = null;
+      
+      }
+   
+      public Node(int roomNumber, int k, int spookiness/*, int[] sharedWallsArray*/) {
+         this.spookiness = spookiness;
+         this.roomNumber = roomNumber;
+      //setUpWalls(sharedWallsArray);
+         defaultRoomAccess(k, roomNumber);//we dont have the other nodes yet
+      }
+      public void setUpWalls(int[] sharedWallsArray) {
+         for (int i = 0; i < sharedWallsArray.length; i++) {
+            if (sharedWallsArray[i] != roomNumber)
+               sharedWalls.add(sharedWallsArray[i]);
+         }
+      }
+   
+      public void defaultRoomAccess(int k, int roomNumber) {
+      //inserts room counterclockwise starting from the bottom
+         roomsAccessible.add(roomNumber + k - 1);
+         roomsAccessible.add(roomNumber + k);
+         roomsAccessible.add(roomNumber + 1);
+         roomsAccessible.add(roomNumber - k + 1);
+         roomsAccessible.add(roomNumber - k);
+         roomsAccessible.add(roomNumber - 1);
+      }
+      public void setSpookiness(int n) {
+         spookiness = n;
+      }
+      public int getSpookiness() {
+         return spookiness;
+      }
+   
+      public void setRoomNumber(int n) {
+         roomNumber = n;
+      }
+      public int getRoomNumber() {
+         return roomNumber;
+      }
+      public ArrayList<Integer> getRoomsAccessible() {
+         return roomsAccessible;
+      }
+   }
