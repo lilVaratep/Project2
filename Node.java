@@ -10,14 +10,13 @@
       int spookiness;
       int roomNumber;
       int work;
-   
-      ArrayList<Integer> sharedWalls = new ArrayList<Integer>();
+      int prevRoomNum;
       ArrayList<Integer> roomsAccessible = new ArrayList<Integer>();
+      
       public Node() {
          spookiness = 0;
          roomNumber = 0;
-         sharedWalls = null;
-      
+         prevRoomNum = -1;
       }
    
       public Node(int roomNumber, int k, int spookiness/*, int[] sharedWallsArray*/) {
@@ -26,21 +25,15 @@
       //setUpWalls(sharedWallsArray);
          defaultRoomAccess(k, roomNumber);//we dont have the other nodes yet
       }
-      public void setUpWalls(int[] sharedWallsArray) {
-         for (int i = 0; i < sharedWallsArray.length; i++) {
-            if (sharedWallsArray[i] != roomNumber)
-               sharedWalls.add(sharedWallsArray[i]);
-         }
-      }
-   
+        
       public void defaultRoomAccess(int k, int roomNumber) {
-      //inserts room counterclockwise starting from the bottom
-         roomsAccessible.add(roomNumber + k - 1);
-         roomsAccessible.add(roomNumber + k);
-         roomsAccessible.add(roomNumber + 1);
-         roomsAccessible.add(roomNumber - k + 1);
+      //inserts adjacent rooms with the lowest room number to the highest room number
          roomsAccessible.add(roomNumber - k);
+         roomsAccessible.add(roomNumber - k + 1);
          roomsAccessible.add(roomNumber - 1);
+         roomsAccessible.add(roomNumber + 1);
+         roomsAccessible.add(roomNumber + k - 1);
+         roomsAccessible.add(roomNumber + k);    
       }
       public void setSpookiness(int n) {
          spookiness = n;
@@ -57,5 +50,11 @@
       }
       public ArrayList<Integer> getRoomsAccessible() {
          return roomsAccessible;
+      }
+      public void setPrevRoom(int roomNum){
+         prevRoomNum = roomNum;
+      }
+      public int getPrevRoom(){
+         return prevRoomNum;
       }
    }
