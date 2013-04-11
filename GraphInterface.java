@@ -12,7 +12,7 @@ public interface GraphInterface {
 	public int[] minWorkOpenAllDoors(Node nd);
 	//calculate the least amount of work to open doors to
 	//	move between any two rooms
-	public int[] leastWorkOpenDoors(Node nd1, Node nd2);
+	public int[] leastWorkOpenDoorsBtwnTwoRooms(Node nd1, Node nd2);
 	// calc total spookiness to go from one room to another
 	public int totalSpookiness(Node nd1, Node nd2);
 	// calc max spookiness of a path
