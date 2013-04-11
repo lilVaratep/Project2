@@ -9,7 +9,7 @@ public interface GraphInterface {
 	public int[] calculateRoomsReachable(Node nd);
 	// calculate the minimum work to open all doors so every room is reachable
 	//	from a given node in parameter
-	public int[] minWorkOpenDoors(Node nd);
+	public int[] minWorkOpenAllDoors(Node nd);
 	//calculate the least amount of work to open doors to
 	//	move between any two rooms
 	public int[] leastWorkOpenDoors(Node nd1, Node nd2);
