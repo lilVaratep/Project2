@@ -11,10 +11,13 @@
       private int k = 2; 
       private ArrayList<Integer> roomsWithBlockedWalls = new ArrayList<Integer>();
       private ArrayList<Node> nodeArray = new ArrayList<Node>();
-      private ArrayList<Integer> reachableRooms = new ArrayList<Integer>(); 
+      
       private int aRoom = 0;
+      int r= 1;
+      int newRoomsAdded = 0;
    	
       public void readFile(){
+         System.out.println("Welcome to Castle Helper.");
          int scaryRoomNum, arrayPos, roomNum= 0;
          int room;
          String []stringsOfInt;
@@ -33,7 +36,7 @@
                      kFound = true;}
                   else{
                   //creates node and puts it into array and adds spookiness
-                     nodeArray.add(new Node (roomNum, k, Integer.parseInt(stringsOfInt[0])));
+                     nodeArray.add(new Node (roomNum, k, Integer.parseInt(stringsOfInt[0]), -1));
                      roomNum++;}
                }
                else{//make array of rooms with blocked walls
@@ -42,15 +45,18 @@
             }				
          } 
             catch (Exception e){System.err.println("Error " + e);}
+         calcStuff();
+      }
+   				
+      private void calcStuff(){
          checkIfIsEdge();
          setBlockedWalls();
          calcReachableRooms();
-        // calcMinWorkForTotalAccess();
+         calcMinWorkForTotalAccess();
         // calcMinWorkBetweenRooms();
         // calcSpookinessBetweenRooms();
         // calcMaxSpookiness();
       }
-   	
       private void checkIfIsEdge(){
          int specificRoomNum, accessibleRoom;
          int v = 0;
@@ -79,53 +85,25 @@
             theGraph.blockWall(firstRoom,secondRoom);}
       }
    
-      private void calcReachableRooms(){//gets a room and sees if there is a path to starting room
-         Node room, startRoom;
-         int adjacentRoom;
-         reachableRooms.add(nodeArray.get(0).getRoomNumber());// . . . . . . . . . . . .room 0 always first starting room
-         for (int y = 1; y < nodeArray.size(); y++){//                                  for each room
-            room = nodeArray.get(y);// . . . . . . . . . . . . . . . . . . . . . . . . .set as starting room
-            startRoom = room;//                                                         save starting room to possibly add to array
-            while (room != nodeArray.get(0)){//. . . . . . . . . . . . . . . . . . . . .while we have not gotten to room 0
-               for(int adjRm = 0; adjRm < room.getRoomsAccessible().size(); adjRm++){// for each room accessible
-                  int adjacentRoomNum = room.getRoomsAccessible().get(adjRm);// . . . . get an accessible room number
-                  for(int rchRmNum = 0; rchRmNum < reachableRooms.size(); rchRmNum++){//for each room that -> room 0
-                     int reachableRoomNum = reachableRooms.get(rchRmNum);// . . . . . . get a specific reachable room
-                     if (adjacentRoomNum == reachableRoomNum){//								 if the room has an adjacent room number that has a path to room 0
-                        room = nodeArray.get(0);// . . . . . . . . . . . . . . . . . . .room is reachable(path to room 0)
-                        break;}//got to room 0
-                  }
-                  if(room == nodeArray.get(0))
-                     break;
-               }
-            	
-               if(room == nodeArray.get(0))
-                  break;
-               else{
-                  int w = 0;
-                  Node lowAdjRoom = nodeArray.get(room.getRoomsAccessible().get(w));
-                  if (lowAdjRoom.getPrevRoom() == room.getRoomNumber())
-                     break;
-                  else{
-                     lowAdjRoom.setPrevRoom(room.getRoomNumber());
-                     room = lowAdjRoom;}
-               }
-            }
-            if (room == nodeArray.get(0))
-               reachableRooms.add(startRoom.getRoomNumber());
-         }
-               			
-         
-         for (int b = 0; b <reachableRooms.size();b++)
-            System.out.print(reachableRooms.get(b) + ", ");
-         
+      private void calcReachableRooms(){//goes from starting room to get to other rooms
+         ArrayList<Integer> reachableRooms = new ArrayList<Integer>(); 
+         reachableRooms = theGraph.calculateRoomsReachable(nodeArray, k);
+         System.out.print("The reachable rooms are: "); 
+         for (int b = 0; b < k*k;b++)
+            if (reachableRooms.indexOf(b) != -1)
+               System.out.print(b + ", ");
+         System.out.println();
       }
+      
    	
       private void calcMinWorkForTotalAccess(){
-         int [] minWork = new int[k];// not sure if long enough
+         for (int i = 0; i < nodeArray.size(); i++)
+            nodeArray.get(i).setRoomsAdded(0);
+         int minWork = 0;// not sure if long enough
          minWork = theGraph.minWorkForAllRoomsAccessible(nodeArray.get(0));
-         for (int a = 0; a < minWork.length; a++)
-            System.out.print(minWork[a]);
+         System.out.print("The minimum amount of work necessary to open doors so");
+         System.out.print ("that all rooms are accessable is: ");
+         System.out.println(minWork);
       }
    	
       private void calcMinWorkBetweenRooms(){
