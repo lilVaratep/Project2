@@ -11,19 +11,25 @@
       int roomNumber;
       int work;
       int prevRoomNum;
+      int roomsAdded;
+      int adjRoomsChecked;
+      int roomsReachableSize;
       ArrayList<Integer> roomsAccessible = new ArrayList<Integer>();
       
       public Node() {
          spookiness = 0;
          roomNumber = 0;
-         prevRoomNum = -1;
+         prevRoomNum = 0;
+         roomsAdded = 0;
+         adjRoomsChecked = 0;
+         roomsReachableSize = 0;
       }
    
-      public Node(int roomNumber, int k, int spookiness/*, int[] sharedWallsArray*/) {
+      public Node(int roomNumber, int k, int spookiness, int prevRoomNum/*, int[] sharedWallsArray*/) {
          this.spookiness = spookiness;
          this.roomNumber = roomNumber;
-      //setUpWalls(sharedWallsArray);
-         defaultRoomAccess(k, roomNumber);//we dont have the other nodes yet
+         defaultRoomAccess(k, roomNumber);
+         this.prevRoomNum = prevRoomNum;
       }
         
       public void defaultRoomAccess(int k, int roomNumber) {
@@ -56,5 +62,20 @@
       }
       public int getPrevRoom(){
          return prevRoomNum;
+      }
+      public void setRoomsAdded(int numOfRooms){
+         this.roomsAdded = numOfRooms;
+      }
+   	
+      public int getRoomsAdded(){
+         return roomsAdded;
+      }
+   	
+      public void setAdjRoomsChecked(int adjRoomsChecked){
+         this.adjRoomsChecked = adjRoomsChecked;
+      }
+   	
+      public int getAdjRoomsChecked(){
+         return adjRoomsChecked;
       }
    }
