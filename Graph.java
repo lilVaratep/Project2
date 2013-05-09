@@ -11,19 +11,19 @@
       
    
         // put up a wall between two rooms
-      public void blockWall(Node a, Node b){
+      public void blockWall(Node a, Node b){//(Austin)
          ArrayList<Integer> adjRooms = new ArrayList<Integer>();
          int i = 0;
          adjRooms = a.getRoomsAccessible();
-         while (i < adjRooms.size())
-            if (adjRooms.get(i) == b.getRoomNumber()) 
+         while (i < adjRooms.size())//look at each adj room
+            if (adjRooms.get(i) == b.getRoomNumber())
                a.getRoomsAccessible().remove(i);
             else
                i++;
          a.getRoomsAccessible().trimToSize();
-      			
+         		
          i = 0;
-         adjRooms = b.getRoomsAccessible();
+         adjRooms = b.getRoomsAccessible();//get adj rooms
          while (i < adjRooms.size())
             if (adjRooms.get(i) == a.getRoomNumber()) 
                b.getRoomsAccessible().remove(i);
@@ -33,7 +33,7 @@
       }   
    	
    	    // what is the starting room?
-      private Node checkStartingRoom(Node startRoom){
+      private Node checkStartingRoom(Node startRoom){//(Austin)
          int accessibleRoom = 0, roomNum = 0, roomsAdded = 0, newRoomNum = 0;
          startRoom.setPrevRoom(-2);//used to end while loop
          reachableRooms.add(startRoom.getRoomNumber());
@@ -53,7 +53,7 @@
    	
         // calculate the rooms that you can get to
       public ArrayList<Integer> calculateRoomsReachable
-                (ArrayList<Node> ndArray, int k){
+                (ArrayList<Node> ndArray, int k){//(Austin)
          nodeArray = ndArray;
          int nextAddedRoom = 0, totRoomsAdded = 0, adjRoomsChecked = 0;
          reachableRooms = new ArrayList<Integer>(k*k);//able to hold all romms
@@ -85,15 +85,15 @@
       }
    	
             // get the room that you were just at
-      private Node getPrevRoom(Node currentRoom){
+      private Node getPrevRoom(Node currentRoom){//(Austin)
          int nextAddedRoom = 0;
          int accessible = 0, nextAdjRoom = 0;
          currentRoom = nodeArray.get(currentRoom.getPrevRoom());
          int totRoomsAdded = currentRoom.getRoomsAdded();
          while(currentRoom.getAdjRoomsChecked() >= totRoomsAdded){
-            if (currentRoom.getPrevRoom() == -2)
+            if (currentRoom.getPrevRoom() == -2)//no prev room
                break;
-            currentRoom = nodeArray.get(currentRoom.getPrevRoom());
+            currentRoom = nodeArray.get(currentRoom.getPrevRoom());//prev room
             totRoomsAdded = currentRoom.getRoomsAdded();
          }
          if (currentRoom.getPrevRoom() == -2)
@@ -106,7 +106,7 @@
       }
    
         // what is the min work to access all rooms?
-      public int minWorkForAllRoomsAccessible(Node room){
+      public int minWorkForAllRoomsAccessible(Node room){//(Austin)
          int totMinWork = 0;
          int work = 0;
          int leastWork = 100;
@@ -117,24 +117,25 @@
          Node aRoom;
          ArrayList<Integer> unlockedRooms = new ArrayList<Integer>();
          ArrayList<Integer> roomsWithLockedAdjRooms = new ArrayList<Integer>();
-         roomsWithLockedAdjRooms.add(room.getRoomNumber());
+         roomsWithLockedAdjRooms.add(room.getRoomNumber());//add adj room
+			//while all rooms have not been checked
          while(roomsWithLockedAdjRooms.size() != reachableRooms.size()){
             size = roomsWithLockedAdjRooms.size();
             for (int a = 0; a < size; a++){
-               firstRoom = roomsWithLockedAdjRooms.get(a);
-               aRoom = nodeArray.get(firstRoom);
+               firstRoom = roomsWithLockedAdjRooms.get(a);//first room num in array
+               aRoom = nodeArray.get(firstRoom);//gets actual room
                for (int z = 0; z < aRoom.getRoomsAccessible().size(); z++){
-                  secondRoom = aRoom.getRoomsAccessible().get(z);
+                  secondRoom = aRoom.getRoomsAccessible().get(z);//get adj room
                   if (roomsWithLockedAdjRooms.contains(secondRoom) == false){
-                     int math = Math.abs(firstRoom - secondRoom);
-                     if (leastWork > math){
-                        leastWork = Math.abs(firstRoom - secondRoom);
+                     int math = Math.abs(firstRoom - secondRoom);//calc nw work
+                     if (leastWork > math){//nw work is less
+                        leastWork = Math.abs(firstRoom - secondRoom);//save
                         saveRoom = secondRoom;}
                   }
                }//end for (int z = 0;...
             }//end for (int a = 0;...
-            totMinWork = totMinWork + leastWork;
-            roomsWithLockedAdjRooms.add(saveRoom);
+            totMinWork = totMinWork + leastWork;//saves tot work
+            roomsWithLockedAdjRooms.add(saveRoom);//room with prev room
             leastWork = 100;
          }
          return totMinWork;
@@ -143,25 +144,25 @@
    
       //(varatep) min work to move between a pair of rooms
       //helper method
-      public int leastWorkOpenDoors(Node nd1, Node nd2){
+      public int leastWorkOpenDoors(Node nd1, Node nd2){//(Varatep)
          return Math.abs(nd1.getRoomNumber()-nd2.getRoomNumber());
       }
    
     //helper methods
-      public int totalSpookinessBetweenRooms(Node nd1, Node nd2){
+      public int totalSpookinessBetweenRooms(Node nd1, Node nd2){//(Varatep)
          int totalSpookiness = 0;
       
          return totalSpookiness;
       }
         //helper method
-      public int maxSpookiness(Node nd1, Node nd2){
+      public int maxSpookiness(Node nd1, Node nd2){//(Varatep)
          int maxSpookiness = 0;
       
          return maxSpookiness;
       }
    
     // check if the edge exists
-      public boolean checkEdge(int aRoomNum, int anAccessibleRoom, int k){
+      public boolean checkEdge(int aRoomNum, int anAccessibleRoom, int k){//(Austin)
          if (anAccessibleRoom < 0)//outside low range
             return true;
          else if (anAccessibleRoom >= (k*k))//outside high range
