@@ -3,7 +3,7 @@
    import javax.swing.*;//for file chooser
 
 	// main class
-   public class Driver3{
+   public class Driver2{
       private File txtFile;
       private String fileName, line;
       private boolean kFound = false;
@@ -112,44 +112,6 @@
          System.out.print ("that all rooms are accessable is: ");
          System.out.println(minWork);
       }
-   	
-      /*private void calcMinWorkBetweenRooms(){
-         int [] minWorkBetweenRooms = new int[k];// not sure if long enough
-         Node startingRoomNode, endingRoomNode;
-         Scanner aScanner = new Scanner (System.in);
-         System.out.println("Enter starting room");
-         startingRoomNode = nodeArray.get(aScanner.nextInt());
-         System.out.println("Enter ending room");
-         endingRoomNode = nodeArray.get(aScanner.nextInt());
-         minWorkBetweenRooms = theGraph.leastWorkOpenDoors(startingRoomNode,endingRoomNode);
-         for (int a = 0; a < minWorkBetweenRooms.length; a++)
-            System.out.print(minWorkBetweenRooms[a]);
-      } 
-   	
-      private void calcSpookinessBetweenRooms(){
-         int SpookinesskBetweenRooms = 0;
-         Node startingRoomNode, endingRoomNode;
-         Scanner aScanner = new Scanner (System.in);
-         System.out.println("Enter starting room");
-         startingRoomNode = nodeArray.get(aScanner.nextInt());
-         System.out.println("Enter ending room");
-         endingRoomNode = nodeArray.get(aScanner.nextInt());
-         SpookinesskBetweenRooms = theGraph.totalSpookinessBetweenRooms(startingRoomNode,endingRoomNode);
-         System.out.print(SpookinesskBetweenRooms);
-      } 
-   
-      private void calcMaxSpookiness(){
-         int SpookinesskBetweenRooms = 0;
-         Node startingRoomNode, endingRoomNode;
-         Scanner aScanner = new Scanner (System.in);
-         System.out.println("Enter starting room");
-         startingRoomNode = nodeArray.get(aScanner.nextInt());
-         System.out.println("Enter ending room");
-         endingRoomNode = nodeArray.get(aScanner.nextInt());
-         SpookinesskBetweenRooms = theGraph.maxSpookiness(startingRoomNode,endingRoomNode);
-         System.out.print(SpookinesskBetweenRooms);
-      
-      }*/
       
       // make the chart of min work between two rooms
       private void calcMinWorkBetweenRooms() {
@@ -197,7 +159,7 @@
    
         //main method
       public static void main (String[] args) throws Exception {
-         Driver3 d3 = new Driver3();
-         d3.readFile();
+         Driver2 d2 = new Driver2();
+         d2.readFile();
       }
    }
