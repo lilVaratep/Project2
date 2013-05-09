@@ -2,11 +2,15 @@
    import java.lang.*;//for abs
   
    public class Graph{
-      private ArrayList<Integer> avaliableRooms = new ArrayList<Integer>();//nothing yet
-      private ArrayList<Integer> reachableRooms;//list of rooms that are reachable by room 0
-      private ArrayList<Node> nodeArray = new ArrayList<Node>();//list of array of rooms as nodes
+      private ArrayList<Integer> avaliableRooms = new ArrayList<Integer>();
+      //nothing yet
+      public ArrayList<Integer> reachableRooms;
+      //list of rooms that are reachable by room 0
+      private ArrayList<Node> nodeArray = new ArrayList<Node>();
+      //list of array of rooms as nodes
       
    
+        // put up a wall between two rooms
       public void blockWall(Node a, Node b){
          ArrayList<Integer> adjRooms = new ArrayList<Integer>();
          int i = 0;
@@ -28,7 +32,7 @@
          a.getRoomsAccessible().trimToSize();
       }   
    	
-   	
+   	    // what is the starting room?
       private Node checkStartingRoom(Node startRoom){
          int accessibleRoom = 0, roomNum = 0, roomsAdded = 0, newRoomNum = 0;
          startRoom.setPrevRoom(-2);//used to end while loop
@@ -47,7 +51,9 @@
          return nodeArray.get(reachableRooms.get(newRoomNum));//gets next room
       } 
    	
-      public ArrayList calculateRoomsReachable(ArrayList<Node> ndArray, int k){
+        // calculate the rooms that you can get to
+      public ArrayList<Integer> calculateRoomsReachable
+                (ArrayList<Node> ndArray, int k){
          nodeArray = ndArray;
          int nextAddedRoom = 0, totRoomsAdded = 0, adjRoomsChecked = 0;
          reachableRooms = new ArrayList<Integer>(k*k);//able to hold all romms
@@ -78,6 +84,7 @@
          return reachableRooms;
       }
    	
+            // get the room that you were just at
       private Node getPrevRoom(Node currentRoom){
          int nextAddedRoom = 0;
          int accessible = 0, nextAdjRoom = 0;
@@ -98,6 +105,7 @@
          return nodeArray.get(nextAddedRoom);
       }
    
+        // what is the min work to access all rooms?
       public int minWorkForAllRoomsAccessible(Node room){
          int totMinWork = 0;
          int work = 0;
@@ -132,24 +140,27 @@
          return totMinWork;
       }
    
-      public int[] leastWorkOpenDoors(Node nd1, Node nd2){
-         int[] minDoorWorkBetweenRooms = null;
-      
-         return minDoorWorkBetweenRooms;
+   
+      //(varatep) min work to move between a pair of rooms
+      //helper method
+      public int leastWorkOpenDoors(Node nd1, Node nd2){
+         return Math.abs(nd1.getRoomNumber()-nd2.getRoomNumber());
       }
    
+    //helper methods
       public int totalSpookinessBetweenRooms(Node nd1, Node nd2){
          int totalSpookiness = 0;
       
          return totalSpookiness;
       }
-   
+        //helper method
       public int maxSpookiness(Node nd1, Node nd2){
          int maxSpookiness = 0;
       
          return maxSpookiness;
       }
    
+    // check if the edge exists
       public boolean checkEdge(int aRoomNum, int anAccessibleRoom, int k){
          if (anAccessibleRoom < 0)//outside low range
             return true;

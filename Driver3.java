@@ -2,7 +2,7 @@
    import java.io.*;//for writer
    import javax.swing.*;//for file chooser
 
-	
+	// main class
    public class Driver3{
       private File txtFile;
       private String fileName, line;
@@ -16,6 +16,7 @@
       int r= 1;
       int newRoomsAdded = 0;
    	
+        // read the txt file
       public void readFile(){
          System.out.println("Welcome to Castle Helper.");
          int scaryRoomNum, arrayPos, roomNum= 0;
@@ -48,15 +49,18 @@
          calcStuff();
       }
    				
+      //call the primary 5 methods
       private void calcStuff(){
          checkIfIsEdge();
          setBlockedWalls();
          calcReachableRooms();
          calcMinWorkForTotalAccess();
-        // calcMinWorkBetweenRooms();
+         calcMinWorkBetweenRooms();
         // calcSpookinessBetweenRooms();
         // calcMaxSpookiness();
       }
+      
+      //check if there is an edge
       private void checkIfIsEdge(){
          int specificRoomNum, accessibleRoom;
          int v = 0;
@@ -74,6 +78,7 @@
          }
       }
    	
+        //create a wall
       private void setBlockedWalls(){
          Node firstRoom, secondRoom;
          int firstRoomNum, secondRoomNum;
@@ -85,6 +90,7 @@
             theGraph.blockWall(firstRoom,secondRoom);}
       }
    
+        //get all the rooms reachable
       private void calcReachableRooms(){//goes from starting room to get to other rooms
          ArrayList<Integer> reachableRooms = new ArrayList<Integer>(); 
          reachableRooms = theGraph.calculateRoomsReachable(nodeArray, k);
@@ -96,6 +102,7 @@
       }
       
    	
+        // what is the min work to access all rooms?
       private void calcMinWorkForTotalAccess(){
          for (int i = 0; i < nodeArray.size(); i++)
             nodeArray.get(i).setRoomsAdded(0);
@@ -106,7 +113,7 @@
          System.out.println(minWork);
       }
    	
-      private void calcMinWorkBetweenRooms(){
+      /*private void calcMinWorkBetweenRooms(){
          int [] minWorkBetweenRooms = new int[k];// not sure if long enough
          Node startingRoomNode, endingRoomNode;
          Scanner aScanner = new Scanner (System.in);
@@ -142,8 +149,53 @@
          SpookinesskBetweenRooms = theGraph.maxSpookiness(startingRoomNode,endingRoomNode);
          System.out.print(SpookinesskBetweenRooms);
       
+      }*/
+      
+      // make the chart of min work between two rooms
+      private void calcMinWorkBetweenRooms() {
+        for (int i = 0; i < k * k; i++) {
+            for (int j = 0; j < k * k; j++) {
+                if (!theGraph.reachableRooms.contains(j) &&
+                    !theGraph.reachableRooms.contains(i)) {
+                        System.out.print(Math.abs(i - j) + "\t");
+                    }
+                else if (!theGraph.reachableRooms.contains(j) ||
+                    !theGraph.reachableRooms.contains(i)) {
+                        System.out.print("XX\t");
+                    }
+                 else {
+                    System.out.print(Math.abs(i - j) + "\t");
+                 }
+            }
+            System.out.println();
+        }
       }
+      
+      /*private void calcMaxSpookiness() {
+        int maxOnPath = 0;
+        for (int i = 0; i < k * k; i++) {
+            for (int j = 0; j < k * k; j++) {
+                if (!theGraph.reachableRooms.contains(j) &&
+                    !theGraph.reachableRooms.contains(i)) {
+                        if (theGraph.nodeArray[i] > theGraph.nodeArray[j]) {
+                            System.out.print
+                            (theGraph.nodeArray[i].getSpookiness());
+                        }
+                        else if (theGraph.nodeArray[j] > theGraph.nodeArray[i])
+                         {
+                             System.out.print
+                             (theGraph.nodeArray[j].getSpookiness());
+                         } 
+                }
+                else if (!theGraph.reachableRooms.contains(j) ||
+                    !theGraph.reachableRooms.contains(i)) {
+                        if (
+                    }
+            }
+        }
+      }*/
    
+        //main method
       public static void main (String[] args) throws Exception {
          Driver3 d3 = new Driver3();
          d3.readFile();

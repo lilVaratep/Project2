@@ -17,7 +17,8 @@ public interface GraphInterface {
 	public int totalSpookiness(Node nd1, Node nd2);
 	// calc max spookiness of a path
 	public int maxSpookiness(Node nd1, Node nd2);
-	// checks to see if it is an edge. if it is, removes some "shared walls" (varatep working on)
+	// checks to see if it is an edge. if it is,
+    //removes some "shared walls" (varatep working on)
 	public void checkEdge(Node nd);//(austin)
 	// will also be needing helper methods
 	/*
@@ -26,5 +27,5 @@ public interface GraphInterface {
 			method to take in from driver and make a graph of nodes of rooms
 			method to check boundaries of rooms used in setting the 6
 				maximum reachable rooms
-			more to consider?
+			more to consider?*/
 }

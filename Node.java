@@ -25,7 +25,7 @@
          roomsReachableSize = 0;
       }
    
-      public Node(int roomNumber, int k, int spookiness, int prevRoomNum/*, int[] sharedWallsArray*/) {
+      public Node(int roomNumber, int k, int spookiness, int prevRoomNum) {
          this.spookiness = spookiness;
          this.roomNumber = roomNumber;
          defaultRoomAccess(k, roomNumber);
@@ -33,7 +33,8 @@
       }
         
       public void defaultRoomAccess(int k, int roomNumber) {
-      //inserts adjacent rooms with the lowest room number to the highest room number
+      //inserts adjacent rooms with the
+      //lowest room number to the highest room number
          roomsAccessible.add(roomNumber - k);
          roomsAccessible.add(roomNumber - k + 1);
          roomsAccessible.add(roomNumber - 1);
